@@ -13,4 +13,4 @@ class ImportCategoryController {
         return res.send();
     }
 }
-export { ImportCategoryController };
+export { ImportCategoryController };  
