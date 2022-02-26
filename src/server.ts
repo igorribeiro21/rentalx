@@ -4,6 +4,10 @@ import { router } from './routes/index.routes';
 
 import swaggerFile from './swagger.json';
 
+import "reflect-metadata";
+
+import "./database";
+
 const app = express();
 app.use(express.json());
 
