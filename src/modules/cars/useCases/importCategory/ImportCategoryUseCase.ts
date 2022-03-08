@@ -11,7 +11,7 @@ interface IImportCategory {
 }
 @injectable()
 class ImportCategoryUseCase {
-    constructor(@inject("CategoriesRepository")  private categoriesRepository: CategoriesRepository) {
+    constructor(@inject("CategoriesRepository") private categoriesRepository: CategoriesRepository) {
 
     }
 
@@ -43,14 +43,20 @@ class ImportCategoryUseCase {
 
     async execute(file: Express.Multer.File): Promise<void> {
         const categories = await this.loadCategories(file);
-        categories.map(async (category) => {
-            const categories = category.name.split(',');
-            const name = categories[0];
-            const description = categories[1].replace(";","");            
+        categories.map(async (category) => {                        
+            let { name, description } = category;
+
+            if (!name || !description) {
+                const categories = category.name.split(',');
+                name = categories[0];
+                description = categories[1].replace(";", "");
+            }else {
+                description = description.replace(";","");
+            }
 
             const existCategory = await this.categoriesRepository.findByName(name);
-            
-            if(!existCategory){
+
+            if (!existCategory) {
                 await this.categoriesRepository.create({
                     name,
                     description
