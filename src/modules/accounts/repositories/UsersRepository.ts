@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Repository, Timestamp } from "typeorm";
 import { User } from "../entities/User";
 import { ICreateUserDTO } from "./ICreateUserDTO";
 import { IUsersRepository } from "./IUsersRepository";
@@ -23,6 +23,12 @@ class UsersRepository implements IUsersRepository {
 
     async findByEmail(email: string): Promise<User> {
         const user = await this.repository.findOne({ email });
+
+        return user;
+    }
+
+    async findById(id: string): Promise<User> {
+        const user = await this.repository.findOne(id);
 
         return user;
     }
