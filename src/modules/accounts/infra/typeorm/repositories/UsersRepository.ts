@@ -1,7 +1,7 @@
 import { getRepository, Repository, Timestamp } from "typeorm";
 import { User } from "../entities/User";
-import { ICreateUserDTO } from "./ICreateUserDTO";
-import { IUsersRepository } from "./IUsersRepository";
+import { ICreateUserDTO } from "../../../repositories/ICreateUserDTO";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
 
 class UsersRepository implements IUsersRepository {
     private repository: Repository<User>;
