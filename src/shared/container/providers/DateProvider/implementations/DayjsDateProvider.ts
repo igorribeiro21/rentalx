@@ -4,8 +4,7 @@ import uct from 'dayjs/plugin/utc';
 
 dayjs.extend(uct);
 
-class DayjsDateProvider  implements IDateProvider{
-
+class DayjsDateProvider  implements IDateProvider{   
     compareInHours(start_date: Date, end_date: Date): Number {
         const end_date_utc = this.convertToUTC(end_date);
         const start_date_uct = this.convertToUTC(start_date);
@@ -19,6 +18,13 @@ class DayjsDateProvider  implements IDateProvider{
 
     dateNow(): Date {
         return dayjs().toDate();
+    }
+
+    compareInDays(start_date: Date, end_date: Date): Number {
+        const end_date_utc = this.convertToUTC(end_date);
+        const start_date_uct = this.convertToUTC(start_date);
+
+        return dayjs(end_date_utc).diff(start_date_uct,"days");
     }
 }
 
