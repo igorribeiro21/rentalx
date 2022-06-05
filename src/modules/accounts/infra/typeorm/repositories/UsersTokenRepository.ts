@@ -3,10 +3,10 @@ import { ICreateUserTokenDTO } from "../../../dtos/ICreateUserTokenDTO";
 import { IUsersTokenRepository } from "../../../repositories/IUsersTokenRepository";
 import { UserTokens } from "../entities/UserTokens";
 
-class UsersTokenRepository implements IUsersTokenRepository{
+class UsersTokenRepository implements IUsersTokenRepository {
     private repository: Repository<UserTokens>;
 
-    constructor(){
+    constructor() {
         this.repository = getRepository(UserTokens);
     }
 
@@ -22,6 +22,14 @@ class UsersTokenRepository implements IUsersTokenRepository{
         return userToken;
     }
 
+    async findByUserIdAndRefreshToken(user_id: string, refresh_token: string): Promise<UserTokens> {
+        return await this.repository.findOne({ user_id, refresh_token });
+    }
+
+    async deleteById(id: string): Promise<void> {
+        this.repository.delete(id);
+    }
+
 }
 
-export {UsersTokenRepository};
+export { UsersTokenRepository };
