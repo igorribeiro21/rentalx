@@ -13,12 +13,12 @@ class SendForgotPasswordMailUseCase {
         @inject("UsersRepository") private usersRepository: IUsersRepository,
         @inject("UsersTokenRepository") private usersTokenRepository: IUsersTokenRepository,
         @inject("DayjsDateProvider") private dateProvider: IDateProvider,
-        @inject("EtherealMailProvider") private mailProvider: IMailProvider,
+        @inject("MailProvider") private mailProvider: IMailProvider,
     ) { }
 
     async execute(email: string): Promise<void> {
         const user = await this.usersRepository.findByEmail(email);
-        console.log("users send",user)
+        
         const templatePath = resolve(__dirname, '..', '..', 'views', 'emails', 'forgotPassword.hbs');
 
         if (!user) {
